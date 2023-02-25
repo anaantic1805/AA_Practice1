@@ -78,6 +78,18 @@ public class LoginPage {
         driver.switchTo().alert().accept();
     }
 
+    @Test
+    public void logInWithEmptyFieldsUsernameAndPassword () {
+        driver.findElement(By.cssSelector("[id=\"login2\"]")).click();
+        wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("");
+        driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("");
+        driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
+        wdwait.until(ExpectedConditions.alertIsPresent());
+        Assert.assertEquals(driver.switchTo().alert().getText(), "Please fill out Username and Password.");
+        driver.switchTo().alert().accept();
+    }
+
+
 
 
 
