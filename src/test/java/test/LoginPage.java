@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,10 +23,10 @@ public class LoginPage {
         driver.manage().window().maximize();
 
     }
-    @AfterMethod
-    public void tearDown (){
-        driver.quit();
-    }
+  //  @AfterMethod
+ //   public void tearDown (){
+ //      driver.quit();
+ //  }
 
     @Test
     public void signUp() {
@@ -42,8 +43,17 @@ public class LoginPage {
         wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekimail@mail.com");
         driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTako");
         driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
+    }
 
-
+    @Test
+    public void logInWithInvalidUsername () {
+        driver.findElement(By.cssSelector("[id=\"login2\"]")).click();
+        wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekiinvalidmail@mail.com");
+        driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTako");
+        driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
+        wdwait.until(ExpectedConditions.alertIsPresent());
+        Assert.assertEquals(driver.switchTo().alert().getText(), "User does not exist.");
+        driver.switchTo().alert().accept();
     }
 
 
