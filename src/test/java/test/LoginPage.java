@@ -28,14 +28,20 @@ public class LoginPage {
     }
 
     @Test
-    public void SignIn() throws InterruptedException {
+    public void signUp() throws InterruptedException {
         driver.findElement(By.cssSelector("[id=\"signin2\"]")).click();
         wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"sign-username\"]"))).sendKeys("nekimail@mail.com");
         driver.findElement(By.cssSelector("[id=\"sign-password\"]")).sendKeys("KakoTako");
         driver.findElement(By.xpath("//button[text() = \"Sign up\"]")).click();
         wdwait.until(ExpectedConditions.alertIsPresent()).accept();
+    }
 
-
+    @Test
+    public void logInWithValidPassAndUsername (){
+        driver.findElement(By.cssSelector("[id=\"login2\"]")).click();
+        wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekimail@mail.com");
+        driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTako");
+        driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
 
 
     }
