@@ -28,7 +28,7 @@ public class LoginPage {
     }
 
     @Test
-    public void signUp() throws InterruptedException {
+    public void signUp() {
         driver.findElement(By.cssSelector("[id=\"signin2\"]")).click();
         wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"sign-username\"]"))).sendKeys("nekimail@mail.com");
         driver.findElement(By.cssSelector("[id=\"sign-password\"]")).sendKeys("KakoTako");
