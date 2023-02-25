@@ -23,10 +23,10 @@ public class LoginPage {
         driver.manage().window().maximize();
 
     }
-  //  @AfterMethod
- //   public void tearDown (){
- //      driver.quit();
- //  }
+   @AfterMethod
+    public void tearDown (){
+       driver.quit();
+   }
 
     @Test
     public void signUp() {
@@ -50,6 +50,28 @@ public class LoginPage {
         driver.findElement(By.cssSelector("[id=\"login2\"]")).click();
         wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekiinvalidmail@mail.com");
         driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTako");
+        driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
+        wdwait.until(ExpectedConditions.alertIsPresent());
+        Assert.assertEquals(driver.switchTo().alert().getText(), "User does not exist.");
+        driver.switchTo().alert().accept();
+    }
+
+    @Test
+    public void logInWithInvalidPassword () {
+        driver.findElement(By.cssSelector("[id=\"login2\"]")).click();
+        wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekimail@mail.com");
+        driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTakoInvalid");
+        driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
+        wdwait.until(ExpectedConditions.alertIsPresent());
+        Assert.assertEquals(driver.switchTo().alert().getText(), "Wrong password.");
+        driver.switchTo().alert().accept();
+    }
+
+    @Test
+    public void logInWithInvalidUsernameAndPassword () {
+        driver.findElement(By.cssSelector("[id=\"login2\"]")).click();
+        wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekiInvalidmail@mail.com");
+        driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTakoInvalid2");
         driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
         wdwait.until(ExpectedConditions.alertIsPresent());
         Assert.assertEquals(driver.switchTo().alert().getText(), "User does not exist.");
