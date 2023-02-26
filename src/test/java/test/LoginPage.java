@@ -23,10 +23,10 @@ public class LoginPage {
         driver.manage().window().maximize();
 
     }
-   @AfterMethod
-    public void tearDown (){
-       driver.quit();
-   }
+ //  @AfterMethod
+ //   public void tearDown (){
+ //      driver.quit();
+ //  }
 
     @Test
     public void signUp() {
@@ -43,6 +43,8 @@ public class LoginPage {
         wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekimail@mail.com");
         driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTako");
         driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
+        String verifyTheUserIsLoggedIn = wdwait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[id=\"nameofuser\"]"))).getText();
+        Assert.assertTrue(verifyTheUserIsLoggedIn.contains("Welcome "));
     }
 
     @Test
@@ -89,8 +91,14 @@ public class LoginPage {
         driver.switchTo().alert().accept();
     }
 
+    @Test
+    public void logOut ()   {
+        driver.findElement(By.cssSelector("[id=\"login2\"]")).click();
+        wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"loginusername\"]"))).sendKeys("nekimail@mail.com");
+        driver.findElement(By.cssSelector("[id=\"loginpassword\"]")).sendKeys("KakoTako");
+        driver.findElement(By.xpath("//button[text() = \"Log in\"]")).click();
+        wdwait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[id=\"logout2\"]"))).click();
+    }
 
-
-
-
+    
 }
