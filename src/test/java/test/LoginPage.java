@@ -23,10 +23,10 @@ public class LoginPage {
         driver.manage().window().maximize();
 
     }
- //  @AfterMethod
- //   public void tearDown (){
- //      driver.quit();
- //  }
+   @AfterMethod
+    public void tearDown (){
+       driver.quit();
+   }
 
     @Test
     public void signUp() {
