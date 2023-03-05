@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name = "TestSuite" parallel="tests" thread-count="1">
+
+    <parameter name="username" value="nekimail@mail.com"/>
+    <parameter name="password" value="KakoTako"/>
+
+    <test name="Sign up">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="signUp"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login with valid username and password">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="logIn">
+                        <parameter name="selector" value="[id='nameofuser']"/>
+                        <parameter name="text" value="Welcome nekimail@mail.com"/>
+                    </include>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login with invalid username and valid password">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="invalidLogIn">
+                        <parameter name="username" value="nekimailinvalid@mail.com"/>
+                        <parameter name="text" value="User does not exist."/>
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login with valid username and invalid password">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="invalidLogIn">
+                        <parameter name="password" value="InvalidPass"/>
+                        <parameter name="text" value="Wrong password."/>
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login with invalid username and invalid password">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="invalidLogIn">
+                        <parameter name="username" value="nekimailinvalid2@mail.com"/>
+                        <parameter name="password" value="InvalidPass"/>
+                        <parameter name="text" value="User does not exist."/>
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login with empty fields username and password">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="invalidLogIn">
+                        <parameter name="username" value=""/>
+                        <parameter name="password" value=""/>
+                        <parameter name="text" value="Please fill out Username and Password."/>
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Log Out">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="logOut"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="logIn and verify if user is not logged out after refresh and back and forward page">
+        <classes>
+            <class name="LoginPage">
+                <methods>
+                    <include name="logInAndVerifyIfUserIsNotLoggedOutAfterRefreshAndBackAndForwardPage">
+                        <parameter name="username" value="nekimail@mail.com"/>
+                        <parameter name="password" value="KakoTako"/>
+                        <parameter name="selector" value="[id='nameofuser']"/>
+                        <parameter name="text" value="Welcome nekimail@mail.com"/>
+                    </include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
